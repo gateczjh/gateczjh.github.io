@@ -1,54 +1,41 @@
 ---
-layout: zh-page
-title: 活動紀錄
+layout: en-page
+title: Activities
 ---
 
 <main class="page-shell">
 
   <div class="page-title-block">
-
-    <h1 class="page-title">
-      活動紀錄
-    </h1>
-
-    <div class="page-title-en">
-      Activities
-    </div>
-
+    <h1 class="page-title">Activities</h1>
+    <div class="page-title-en">Activity Posts</div>
   </div>
 
 
   <div class="activity-search-wrap">
 
-    <label
-      class="activity-search-label"
-      for="activitySearch"
-    >
-      搜尋貼文
+    <label class="activity-search-label" for="activitySearch">
+      Search Posts
     </label>
 
     <input
       class="activity-search"
       id="activitySearch"
       type="search"
-      placeholder="輸入活動名稱、關鍵字或日期"
+      placeholder="Search by title, keyword, or date"
       autocomplete="off"
       data-activity-search
     >
 
-    <div
-      class="search-count"
-      data-search-count
-    ></div>
+    <div class="search-count" data-search-count></div>
 
   </div>
 
 
   <div class="activity-feed">
 
-    {% assign zh_posts = site.posts | where: "lang", "zh" %}
+    {% assign en_posts = site.posts | where: "lang", "en" %}
 
-    {% for post in zh_posts %}
+    {% for post in en_posts %}
 
       <article
         class="feed-post"
@@ -57,29 +44,15 @@ title: 活動紀錄
         data-date="{{ post.date | date: '%Y.%m.%d' }}"
       >
 
-
-        <a
-          class="feed-cover"
-          href="{{ post.url | relative_url }}"
-        >
+        <a class="feed-cover" href="{{ post.url | relative_url }}">
 
           {% if post.cover %}
-
-            <img
-              src="{{ post.cover | relative_url }}"
-              alt="{{ post.title }}"
-            >
-
+            <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}">
           {% else %}
-
-            <div class="feed-placeholder">
-              ACTIVITY
-            </div>
-
+            <div class="feed-placeholder">ACTIVITY</div>
           {% endif %}
 
         </a>
-
 
         <div class="feed-content">
 
@@ -95,15 +68,11 @@ title: 活動紀錄
 
           
 
-          <a
-            class="feed-read"
-            href="{{ post.url | relative_url }}"
-          >
-            閱讀文章 →
+          <a class="feed-read" href="{{ post.url | relative_url }}">
+            Read Post →
           </a>
 
         </div>
-
 
       </article>
 
@@ -112,11 +81,16 @@ title: 活動紀錄
   </div>
 
 
-  <div
-    class="no-search-results"
-    data-no-results
-  >
-    找不到符合條件的文章。
+  {% if en_posts.size == 0 %}
+    <div class="construction-box">
+      <div class="construction-main">Coming Soon</div>
+      <div class="construction-en">No English activity posts have been published yet.</div>
+    </div>
+  {% endif %}
+
+
+  <div class="no-search-results" data-no-results>
+    No matching posts found.
   </div>
 
 
