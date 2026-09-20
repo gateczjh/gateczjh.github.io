@@ -4,7 +4,7 @@ title: 訊息公告
 ---
 
 <style>
-/* Force announcement archive to use the full width of page-shell. */
+/* Announcement archive full width. */
 .announcement-archive {
   width: 100% !important;
   max-width: none !important;
@@ -13,14 +13,74 @@ title: 訊息公告
 .announcement-archive-date {
   font-size: 14px !important;
 }
-</style>
 
+/* Announcement search */
+.announcement-search-wrap {
+  margin-bottom: 28px;
+}
+
+.announcement-search-label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.announcement-search {
+  width: min(680px, 100%);
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  outline: none;
+  font-size: 16px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.announcement-search:focus {
+  border-color: rgba(31, 94, 255, 0.55);
+  box-shadow: 0 0 0 3px rgba(31, 94, 255, 0.08);
+}
+
+.announcement-search-count {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.announcement-no-results {
+  display: none;
+  padding: 28px 0;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+}
+</style>
 
 <main class="page-shell">
 
   <div class="page-title-block">
     <h1 class="page-title">訊息公告</h1>
     <div class="page-title-en">Announcements</div>
+  </div>
+
+  <div class="announcement-search-wrap">
+    <label class="announcement-search-label" for="announcementSearch">
+      搜尋公告
+    </label>
+
+    <input
+      class="announcement-search"
+      id="announcementSearch"
+      type="search"
+      placeholder="輸入公告標題、內文關鍵字或日期"
+      autocomplete="off"
+      data-announcement-search
+    >
+
+    <div
+      class="announcement-search-count"
+      data-announcement-search-count
+    ></div>
   </div>
 
   <div class="announcement-filter" role="group" aria-label="公告分類">
@@ -30,15 +90,24 @@ title: 訊息公告
     <button class="announcement-filter-btn" type="button" data-filter="honor" aria-pressed="false">師生榮耀</button>
   </div>
 
-  {% assign zh_announcements = site.announcements | where: "lang", "zh" | sort: "date" | reverse %}
+  {% assign announcements = site.announcements | where: "lang", "zh" | sort: "date" | reverse %}
 
   <div class="announcement-archive" id="announcementArchive">
 
-    {% if zh_announcements.size > 0 %}
+    {% if announcements.size > 0 %}
 
-      {% for notice in zh_announcements %}
+      {% for notice in announcements %}
 
-        <a class="announcement-archive-item" data-category="{{ notice.category }}" href="{{ notice.url | relative_url }}">
+        <a
+          class="announcement-archive-item"
+          data-announcement-item
+          data-category="{{ notice.category }}"
+          data-title="{{ notice.title | escape }}"
+          data-date="{{ notice.date | date: '%Y.%m.%d' }}"
+          data-search-content="{{ notice.content | strip_html | strip_newlines | escape }}"
+          data-contact="{{ notice.contact | default: '' | escape }}"
+          href="{{ notice.url | relative_url }}"
+        >
 
           <div class="announcement-archive-date">
             {{ notice.date | date: "%Y.%m.%d" }}
@@ -73,29 +142,100 @@ title: 訊息公告
 
     {% endif %}
 
+    <div class="announcement-no-results" data-announcement-no-results>
+      找不到符合條件的公告。
+    </div>
+
   </div>
 
 </main>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  const buttons = document.querySelectorAll(".announcement-filter-btn");
-  const items = document.querySelectorAll(".announcement-archive-item");
+  var buttons = Array.prototype.slice.call(
+    document.querySelectorAll(".announcement-filter-btn")
+  );
+  var items = Array.prototype.slice.call(
+    document.querySelectorAll("[data-announcement-item]")
+  );
+  var input = document.querySelector("[data-announcement-search]");
+  var count = document.querySelector("[data-announcement-search-count]");
+  var noResults = document.querySelector("[data-announcement-no-results]");
+  var activeFilter = "all";
+
+  function normalizeText(value) {
+    var text = String(value || "").toLowerCase().trim();
+
+    try {
+      text = text.normalize("NFKC");
+    } catch (error) {}
+
+    return text;
+  }
+
+  function applyFilters() {
+    var keyword = normalizeText(input ? input.value : "");
+    var totalVisible = 0;
+
+    items.forEach(function (item) {
+      var matchesCategory =
+        activeFilter === "all" ||
+        item.getAttribute("data-category") === activeFilter;
+
+      var haystack = normalizeText(
+        [
+          item.getAttribute("data-title"),
+          item.getAttribute("data-date"),
+          item.getAttribute("data-search-content"),
+          item.getAttribute("data-contact"),
+          item.textContent
+        ].join(" ")
+      );
+
+      var matchesSearch =
+        keyword === "" || haystack.indexOf(keyword) !== -1;
+
+      var visible = matchesCategory && matchesSearch;
+      item.hidden = !visible;
+
+      if (visible) {
+        totalVisible += 1;
+      }
+    });
+
+    if (count) {
+      if (keyword !== "") {
+        count.textContent = 找到 " + totalVisible + " 則公告;
+      } else {
+        count.textContent = 共 " + totalVisible + " 則公告;
+      }
+    }
+
+    if (noResults) {
+      noResults.style.display =
+        items.length > 0 && totalVisible === 0 ? "block" : "none";
+    }
+  }
 
   buttons.forEach(function (button) {
     button.addEventListener("click", function () {
-      const filter = button.dataset.filter;
+      activeFilter = button.getAttribute("data-filter") || "all";
 
       buttons.forEach(function (btn) {
-        const active = btn === button;
+        var active = btn === button;
         btn.classList.toggle("active", active);
         btn.setAttribute("aria-pressed", active ? "true" : "false");
       });
 
-      items.forEach(function (item) {
-        item.hidden = !(filter === "all" || item.dataset.category === filter);
-      });
+      applyFilters();
     });
   });
+
+  if (input) {
+    input.addEventListener("input", applyFilters);
+    input.addEventListener("search", applyFilters);
+  }
+
+  applyFilters();
 });
 </script>
