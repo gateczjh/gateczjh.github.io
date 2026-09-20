@@ -25,7 +25,7 @@ title: 訊息公告
 
       {% for notice in zh_announcements %}
 
-        <article class="announcement-archive-item" data-category="{{ notice.category }}">
+        <a class="announcement-archive-item" data-category="{{ notice.category }}" href="{{ notice.url | relative_url }}">
 
           <div class="announcement-archive-date">
             {{ notice.date | date: "%Y.%m.%d" }}
@@ -43,20 +43,20 @@ title: 訊息公告
             </div>
 
             <h2 class="announcement-archive-title">
-              <a href="{{ notice.url | relative_url }}">{{ notice.title }}</a>
+              {{ notice.title }}
             </h2>
 
           </div>
 
-          <a class="announcement-archive-read" href="{{ notice.url | relative_url }}" aria-label="閱讀 {{ notice.title }}">→</a>
+          <span class="announcement-archive-read">→</span>
 
-        </article>
+        </a>
 
       {% endfor %}
 
     {% else %}
 
-      <div class="announcement-empty">目前沒有公告</div>
+      <div class="announcement-empty-row">目前沒有公告</div>
 
     {% endif %}
 

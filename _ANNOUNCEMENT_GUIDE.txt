@@ -1,0 +1,57 @@
+CZJH GATE 公告新增說明
+======================
+
+【公告分類】
+請在每一篇公告的 YAML 區塊使用以下其中一個 category：
+
+# class    = 班務公告
+# activity = 活動分享
+# honor    = 師生榮耀
+
+範例：
+
+---
+title: "資優班家長日公告"
+date: 2026-09-20
+lang: zh
+layout: announcement
+permalink: /zh/announcement/2026/09/20/parent-day/
+
+# ===== 公告分類 =====
+# class    = 班務公告
+# activity = 活動分享
+# honor    = 師生榮耀
+category: class
+
+contact: "張老師"
+
+# 照片最多五張。沒有照片時可直接刪除整段 photos。
+photos:
+  - /announcement-images/2026-09-20-parent-day/photo-01.jpg
+  - /announcement-images/2026-09-20-parent-day/photo-02.jpg
+---
+
+這裡開始撰寫公告內容。
+
+
+【英文公告】
+lang: en
+layout: en-announcement
+
+英文分類仍使用相同的 category 值：
+class / activity / honor
+
+
+【檔案放置位置】
+中文與英文公告 .md：
+_announcements/
+
+公告照片：
+announcement-images/公告資料夾名稱/
+
+
+【首頁顯示規則】
+首頁自動顯示最新五則公告，只顯示：
+分類 / 日期 / 標題
+
+聯絡人只會在點進公告內頁之後顯示。

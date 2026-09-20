@@ -49,11 +49,9 @@ layout: en-page
         <h2 class="post-section-title">Photos</h2>
 
         <div class="post-photo-grid">
-
           {% for photo in page.photos limit:5 %}
             <img class="post-photo" src="{{ photo | relative_url }}" alt="{{ page.title }}">
           {% endfor %}
-
         </div>
 
       </section>

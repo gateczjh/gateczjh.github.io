@@ -25,7 +25,7 @@ title: Announcements
 
       {% for notice in en_announcements %}
 
-        <article class="announcement-archive-item" data-category="{{ notice.category }}">
+        <a class="announcement-archive-item" data-category="{{ notice.category }}" href="{{ notice.url | relative_url }}">
 
           <div class="announcement-archive-date">
             {{ notice.date | date: "%Y.%m.%d" }}
@@ -43,20 +43,20 @@ title: Announcements
             </div>
 
             <h2 class="announcement-archive-title">
-              <a href="{{ notice.url | relative_url }}">{{ notice.title }}</a>
+              {{ notice.title }}
             </h2>
 
           </div>
 
-          <a class="announcement-archive-read" href="{{ notice.url | relative_url }}" aria-label="Read {{ notice.title }}">→</a>
+          <span class="announcement-archive-read">→</span>
 
-        </article>
+        </a>
 
       {% endfor %}
 
     {% else %}
 
-      <div class="announcement-empty">No announcements at this time.</div>
+      <div class="announcement-empty-row">No announcements at this time.</div>
 
     {% endif %}
 
