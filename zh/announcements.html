@@ -92,7 +92,7 @@ title: 訊息公告
 
   {% assign announcements = site.announcements | where: "lang", "zh" | sort: "date" | reverse %}
 
-  <div class="announcement-archive" id="announcementArchive">
+  <div class="announcement-archive" id="announcementArchive" data-lang="zh">
 
     {% if announcements.size > 0 %}
 
@@ -152,6 +152,7 @@ title: 訊息公告
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
+  var archive = document.getElementById("announcementArchive");
   var buttons = Array.prototype.slice.call(
     document.querySelectorAll(".announcement-filter-btn")
   );
@@ -161,6 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var input = document.querySelector("[data-announcement-search]");
   var count = document.querySelector("[data-announcement-search-count]");
   var noResults = document.querySelector("[data-announcement-no-results]");
+  var lang = archive && archive.getAttribute("data-lang") === "en" ? "en" : "zh";
   var activeFilter = "all";
 
   function normalizeText(value) {
@@ -173,14 +175,37 @@ document.addEventListener("DOMContentLoaded", function () {
     return text;
   }
 
+  function updateCount(totalVisible, hasKeyword) {
+    if (!count) return;
+
+    if (lang === "en") {
+      if (hasKeyword) {
+        count.textContent =
+          totalVisible +
+          " matching announcement" +
+          (totalVisible === 1 ? "" : "s");
+      } else {
+        count.textContent =
+          totalVisible +
+          " announcement" +
+          (totalVisible === 1 ? "" : "s");
+      }
+    } else {
+      count.textContent =
+        (hasKeyword ? "找到 " : "共 ") +
+        totalVisible +
+        " 則公告";
+    }
+  }
+
   function applyFilters() {
     var keyword = normalizeText(input ? input.value : "");
     var totalVisible = 0;
 
     items.forEach(function (item) {
+      var itemCategory = item.getAttribute("data-category") || "";
       var matchesCategory =
-        activeFilter === "all" ||
-        item.getAttribute("data-category") === activeFilter;
+        activeFilter === "all" || itemCategory === activeFilter;
 
       var haystack = normalizeText(
         [
@@ -196,20 +221,17 @@ document.addEventListener("DOMContentLoaded", function () {
         keyword === "" || haystack.indexOf(keyword) !== -1;
 
       var visible = matchesCategory && matchesSearch;
-      item.hidden = !visible;
+
+      // Use inline display instead of relying on the hidden attribute,
+      // so the archive item's existing CSS cannot override filtering.
+      item.style.display = visible ? "" : "none";
 
       if (visible) {
         totalVisible += 1;
       }
     });
 
-    if (count) {
-      if (keyword !== "") {
-        count.textContent = 找到 " + totalVisible + " 則公告;
-      } else {
-        count.textContent = 共 " + totalVisible + " 則公告;
-      }
-    }
+    updateCount(totalVisible, keyword !== "");
 
     if (noResults) {
       noResults.style.display =
@@ -222,9 +244,9 @@ document.addEventListener("DOMContentLoaded", function () {
       activeFilter = button.getAttribute("data-filter") || "all";
 
       buttons.forEach(function (btn) {
-        var active = btn === button;
-        btn.classList.toggle("active", active);
-        btn.setAttribute("aria-pressed", active ? "true" : "false");
+        var isActive = btn === button;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-pressed", isActive ? "true" : "false");
       });
 
       applyFilters();
