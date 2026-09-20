@@ -47,7 +47,7 @@ title: Activities
         <a class="feed-cover" href="{{ post.url | relative_url }}">
 
           {% if post.cover %}
-            <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}">
+            <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}" loading="lazy" decoding="async">
           {% else %}
             <div class="feed-placeholder">ACTIVITY</div>
           {% endif %}
@@ -87,6 +87,34 @@ title: Activities
       <div class="construction-en">No English activity posts have been published yet.</div>
     </div>
   {% endif %}
+
+
+  <nav
+    class="activity-pagination"
+    data-activity-pagination
+    data-pagination-lang="en"
+    aria-label="Activity pagination"
+  >
+    <button
+      class="pagination-nav"
+      type="button"
+      data-page-prev
+      aria-label="Previous page"
+    >
+      ← Previous
+    </button>
+
+    <div class="pagination-pages" data-page-numbers></div>
+
+    <button
+      class="pagination-nav"
+      type="button"
+      data-page-next
+      aria-label="Next page"
+    >
+      Next →
+    </button>
+  </nav>
 
 
   <div class="no-search-results" data-no-results>

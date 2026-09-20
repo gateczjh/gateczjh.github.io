@@ -1719,3 +1719,75 @@ input {
     font-size: 17px;
   }
 }
+
+
+/* ==================================================
+   ACTIVITIES — PAGINATION
+================================================== */
+
+.activity-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 34px;
+  flex-wrap: wrap;
+}
+
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.pagination-nav,
+.pagination-page {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  min-height: 38px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.pagination-page {
+  min-width: 38px;
+  padding-inline: 10px;
+}
+
+.pagination-nav:hover:not(:disabled),
+.pagination-page:hover,
+.pagination-page.is-active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.pagination-page.is-active {
+  cursor: default;
+}
+
+.pagination-nav:disabled {
+  opacity: 0.32;
+  cursor: default;
+}
+
+@media (max-width: 620px) {
+  .activity-pagination {
+    gap: 8px;
+  }
+
+  .pagination-nav {
+    padding-inline: 12px;
+  }
+}

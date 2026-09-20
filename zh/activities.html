@@ -68,6 +68,8 @@ title: 活動紀錄
             <img
               src="{{ post.cover | relative_url }}"
               alt="{{ post.title }}"
+              loading="lazy"
+              decoding="async"
             >
 
           {% else %}
@@ -110,6 +112,34 @@ title: 活動紀錄
     {% endfor %}
 
   </div>
+
+
+  <nav
+    class="activity-pagination"
+    data-activity-pagination
+    data-pagination-lang="zh"
+    aria-label="活動紀錄分頁"
+  >
+    <button
+      class="pagination-nav"
+      type="button"
+      data-page-prev
+      aria-label="上一頁"
+    >
+      ← 上一頁
+    </button>
+
+    <div class="pagination-pages" data-page-numbers></div>
+
+    <button
+      class="pagination-nav"
+      type="button"
+      data-page-next
+      aria-label="下一頁"
+    >
+      下一頁 →
+    </button>
+  </nav>
 
 
   <div
