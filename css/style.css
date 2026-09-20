@@ -1689,3 +1689,100 @@ input {
   }
 
 }
+
+
+/* ==================================================
+   CONTACT — FINAL COLUMN ALIGNMENT
+================================================== */
+
+/*
+  Desktop layout:
+  1) unit/role block
+  2) contact person
+  3) phone/email
+  This keeps phone numbers and email on the same vertical line
+  and prevents the contact information from drifting too far right.
+*/
+
+.contact-list-wide {
+  max-width: 1040px;
+}
+
+.contact-row-staff,
+.contact-row-email {
+  display: grid;
+  grid-template-columns: 1fr 235px;
+  column-gap: 42px;
+  align-items: center;
+}
+
+.contact-label-person-zh {
+  display: grid;
+  grid-template-columns: 5.5em max-content;
+  column-gap: 1.4em;
+  align-items: baseline;
+}
+
+.contact-label-person-en {
+  display: grid;
+  grid-template-columns: 220px max-content;
+  column-gap: 34px;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+.contact-row-staff .contact-value,
+.contact-row-email .contact-value {
+  justify-self: start;
+  width: 235px;
+  white-space: nowrap;
+}
+
+.contact-row-email .contact-label {
+  min-width: 0;
+}
+
+@media (max-width: 980px) {
+
+  .contact-list-wide {
+    max-width: 100%;
+  }
+
+  .contact-row-staff,
+  .contact-row-email {
+    grid-template-columns: 1fr 210px;
+    column-gap: 28px;
+  }
+
+  .contact-label-person-en {
+    grid-template-columns: 200px max-content;
+    column-gap: 24px;
+  }
+
+  .contact-row-staff .contact-value,
+  .contact-row-email .contact-value {
+    width: 210px;
+  }
+
+}
+
+@media (max-width: 760px) {
+
+  .contact-row-staff,
+  .contact-row-email {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .contact-label-person-en {
+    grid-template-columns: 1fr;
+    row-gap: 4px;
+    white-space: normal;
+  }
+
+  .contact-row-staff .contact-value,
+  .contact-row-email .contact-value {
+    width: auto;
+  }
+
+}
