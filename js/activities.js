@@ -1,62 +1,78 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const input = document.querySelector("[data-activity-search]");
-  const posts = Array.from(document.querySelectorAll("[data-post-item]"));
-  const count = document.querySelector("[data-search-count]");
-  const empty = document.querySelector("[data-no-results]");
-  const pagination = document.querySelector("[data-activity-pagination]");
-  const pageNumbers = document.querySelector("[data-page-numbers]");
-  const prevButton = document.querySelector("[data-page-prev]");
-  const nextButton = document.querySelector("[data-page-next]");
+document.addEventListener("DOMContentLoaded", function () {
+  var input = document.querySelector("[data-activity-search]");
+  var posts = Array.prototype.slice.call(
+    document.querySelectorAll("[data-post-item]")
+  );
+  var count = document.querySelector("[data-search-count]");
+  var empty = document.querySelector("[data-no-results]");
+  var pagination = document.querySelector("[data-activity-pagination]");
+  var pageNumbers = document.querySelector("[data-page-numbers]");
+  var prevButton = document.querySelector("[data-page-prev]");
+  var nextButton = document.querySelector("[data-page-next]");
 
-  if (!input || posts.length === 0) {
-    if (pagination) {
-      pagination.style.display = "none";
-    }
+  if (!input) {
     return;
   }
 
-  const POSTS_PER_PAGE = 5;
-  const lang = pagination?.dataset.paginationLang === "en" ? "en" : "zh";
-  let currentPage = 1;
+  var POSTS_PER_PAGE = 5;
+  var currentPage = 1;
+  var lang =
+    pagination && pagination.getAttribute("data-pagination-lang") === "en"
+      ? "en"
+      : "zh";
 
-  function normalize(value) {
-    return (value || "")
-      .toString()
-      .toLowerCase()
-      .normalize("NFKC")
-      .trim();
+  function normalizeText(value) {
+    var text = String(value || "").toLowerCase().trim();
+
+    try {
+      text = text.normalize("NFKC");
+    } catch (error) {}
+
+    return text;
   }
 
   function getMatchedPosts() {
-    const keyword = normalize(input.value);
+    var keyword = normalizeText(input.value);
 
-    return posts.filter(post => {
-      const haystack = normalize(
-        [
-          post.dataset.title,
-          post.dataset.date,
-          post.textContent
-        ].join(" ")
-      );
+    return posts.filter(function (post) {
+      var title = post.getAttribute("data-title") || "";
+      var date = post.getAttribute("data-date") || "";
+      var content = post.getAttribute("data-search-content") || "";
+      var haystack = normalizeText(title + " " + date + " " + content);
 
-      return keyword === "" || haystack.includes(keyword);
+      return keyword === "" || haystack.indexOf(keyword) !== -1;
     });
   }
 
+  function scrollToFeed() {
+    var feed = document.querySelector(".activity-feed");
+    if (!feed) return;
+
+    var top = feed.getBoundingClientRect().top + window.pageYOffset - 110;
+
+    try {
+      window.scrollTo({ top: top, behavior: "smooth" });
+    } catch (error) {
+      window.scrollTo(0, top);
+    }
+  }
+
   function createPageButton(page) {
-    const button = document.createElement("button");
+    var button = document.createElement("button");
     button.type = "button";
     button.className = "pagination-page";
-    button.textContent = page;
-    button.dataset.page = page;
-    button.setAttribute("aria-label", lang === "en" ? `Page ${page}` : `第 ${page} 頁`);
+    button.textContent = String(page);
+    button.setAttribute(
+      "aria-label",
+      lang === "en" ? "Page " + page : "第 " + page + " 頁"
+    );
 
     if (page === currentPage) {
       button.classList.add("is-active");
       button.setAttribute("aria-current", "page");
     }
 
-    button.addEventListener("click", () => {
+    button.addEventListener("click", function () {
       currentPage = page;
       render();
       scrollToFeed();
@@ -66,57 +82,49 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function renderPageNumbers(totalPages) {
-    if (!pageNumbers) {
-      return;
-    }
+    if (!pageNumbers) return;
 
     pageNumbers.innerHTML = "";
 
-    for (let page = 1; page <= totalPages; page += 1) {
+    for (var page = 1; page <= totalPages; page += 1) {
       pageNumbers.appendChild(createPageButton(page));
     }
   }
 
-  function scrollToFeed() {
-    const feed = document.querySelector(".activity-feed");
-    if (!feed) {
-      return;
-    }
-
-    const top = feed.getBoundingClientRect().top + window.scrollY - 110;
-    window.scrollTo({
-      top,
-      behavior: "smooth"
-    });
-  }
-
   function render() {
-    const keyword = normalize(input.value);
-    const matchedPosts = getMatchedPosts();
-    const totalMatched = matchedPosts.length;
-    const totalPages = Math.max(1, Math.ceil(totalMatched / POSTS_PER_PAGE));
+    var keyword = normalizeText(input.value);
+    var matchedPosts = getMatchedPosts();
+    var totalMatched = matchedPosts.length;
+    var totalPages = Math.max(1, Math.ceil(totalMatched / POSTS_PER_PAGE));
 
     if (currentPage > totalPages) {
       currentPage = totalPages;
     }
 
-    const start = (currentPage - 1) * POSTS_PER_PAGE;
-    const end = start + POSTS_PER_PAGE;
-    const visiblePosts = new Set(matchedPosts.slice(start, end));
+    var start = (currentPage - 1) * POSTS_PER_PAGE;
+    var end = start + POSTS_PER_PAGE;
+    var visiblePosts = matchedPosts.slice(start, end);
 
-    posts.forEach(post => {
-      post.style.display = visiblePosts.has(post) ? "" : "none";
+    posts.forEach(function (post) {
+      post.style.display =
+        visiblePosts.indexOf(post) !== -1 ? "" : "none";
     });
 
     if (count) {
       if (lang === "en") {
         count.textContent = keyword
-          ? `${totalMatched} matching post${totalMatched === 1 ? "" : "s"} · Page ${currentPage} of ${totalPages}`
-          : `${posts.length} post${posts.length === 1 ? "" : "s"} · Page ${currentPage} of ${totalPages}`;
+          ? totalMatched + " matching post" +
+            (totalMatched === 1 ? "" : "s") +
+            " · Page " + currentPage + " / " + totalPages
+          : posts.length + " post" +
+            (posts.length === 1 ? "" : "s") +
+            " · Page " + currentPage + " / " + totalPages;
       } else {
         count.textContent = keyword
-          ? `找到 ${totalMatched} 篇文章 · 第 ${currentPage} / ${totalPages} 頁`
-          : `共 ${posts.length} 篇文章 · 第 ${currentPage} / ${totalPages} 頁`;
+          ? "找到 " + totalMatched + " 篇文章 · 第 " +
+            currentPage + " / " + totalPages + " 頁"
+          : "共 " + posts.length + " 篇文章 · 第 " +
+            currentPage + " / " + totalPages + " 頁";
       }
     }
 
@@ -124,8 +132,10 @@ document.addEventListener("DOMContentLoaded", () => {
       empty.style.display = totalMatched === 0 ? "block" : "none";
     }
 
+    /* Always keep the pager visible when posts exist.
+       If there is only one page, previous/next remain visible but disabled. */
     if (pagination) {
-      pagination.style.display = totalMatched === 0 || totalPages <= 1 ? "none" : "flex";
+      pagination.style.display = totalMatched === 0 ? "none" : "flex";
     }
 
     if (totalMatched > 0) {
@@ -143,28 +153,38 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  input.addEventListener("input", () => {
+  function searchNow() {
     currentPage = 1;
     render();
-  });
+  }
 
-  prevButton?.addEventListener("click", () => {
-    if (currentPage > 1) {
-      currentPage -= 1;
-      render();
-      scrollToFeed();
-    }
-  });
+  input.addEventListener("input", searchNow);
+  input.addEventListener("search", searchNow);
 
-  nextButton?.addEventListener("click", () => {
-    const totalPages = Math.max(1, Math.ceil(getMatchedPosts().length / POSTS_PER_PAGE));
+  if (prevButton) {
+    prevButton.addEventListener("click", function () {
+      if (currentPage > 1) {
+        currentPage -= 1;
+        render();
+        scrollToFeed();
+      }
+    });
+  }
 
-    if (currentPage < totalPages) {
-      currentPage += 1;
-      render();
-      scrollToFeed();
-    }
-  });
+  if (nextButton) {
+    nextButton.addEventListener("click", function () {
+      var totalPages = Math.max(
+        1,
+        Math.ceil(getMatchedPosts().length / POSTS_PER_PAGE)
+      );
+
+      if (currentPage < totalPages) {
+        currentPage += 1;
+        render();
+        scrollToFeed();
+      }
+    });
+  }
 
   render();
 });

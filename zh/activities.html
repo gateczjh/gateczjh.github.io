@@ -31,7 +31,7 @@ title: 活動紀錄
       class="activity-search"
       id="activitySearch"
       type="search"
-      placeholder="輸入活動名稱、關鍵字或日期"
+      placeholder="輸入活動名稱、內文關鍵字或日期"
       autocomplete="off"
       data-activity-search
     >
@@ -55,6 +55,7 @@ title: 活動紀錄
         data-post-item
         data-title="{{ post.title | escape }}"
         data-date="{{ post.date | date: '%Y.%m.%d' }}"
+        data-search-content="{{ post.content | strip_html | strip_newlines | escape }}"
       >
 
 
@@ -150,6 +151,6 @@ title: 活動紀錄
   </div>
 
 
-  <script src="{{ '/js/activities.js' | relative_url }}"></script>
+  <script src="{{ '/js/activities.js' | relative_url }}?v=20260920-pagination-search-v2"></script>
 
 </main>
