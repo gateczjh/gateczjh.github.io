@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const haystack = normalize(
         [
           post.dataset.title,
-          post.dataset.summary,
           post.dataset.date,
           post.textContent
         ].join(" ")

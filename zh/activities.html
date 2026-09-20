@@ -54,7 +54,6 @@ title: 活動紀錄
         class="feed-post"
         data-post-item
         data-title="{{ post.title | escape }}"
-        data-summary="{{ post.summary | default: '' | escape }}"
         data-date="{{ post.date | date: '%Y.%m.%d' }}"
       >
 
@@ -94,19 +93,7 @@ title: 活動紀錄
             </a>
           </h2>
 
-          {% if post.summary %}
-
-            <p class="feed-summary">
-              {{ post.summary }}
-            </p>
-
-          {% else %}
-
-            <p class="feed-summary">
-              施工中
-            </p>
-
-          {% endif %}
+          
 
           <a
             class="feed-read"

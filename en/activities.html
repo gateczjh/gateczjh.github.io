@@ -41,7 +41,6 @@ title: Activities
         class="feed-post"
         data-post-item
         data-title="{{ post.title | escape }}"
-        data-summary="{{ post.summary | default: '' | escape }}"
         data-date="{{ post.date | date: '%Y.%m.%d' }}"
       >
 
@@ -67,11 +66,7 @@ title: Activities
             </a>
           </h2>
 
-          {% if post.summary %}
-            <p class="feed-summary">{{ post.summary }}</p>
-          {% else %}
-            <p class="feed-summary">Coming Soon</p>
-          {% endif %}
+          
 
           <a class="feed-read" href="{{ post.url | relative_url }}">
             Read Post →
