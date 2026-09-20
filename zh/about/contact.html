@@ -3,6 +3,62 @@ layout: zh-page
 title: 聯絡我們
 ---
 
+<style>
+.contact-fixed-list {
+  max-width: 920px;
+  margin-bottom: 48px;
+  border-top: 1px solid var(--line);
+}
+
+.contact-fixed-row {
+  display: grid;
+  grid-template-columns: 160px 160px 240px;
+  column-gap: 28px;
+  align-items: center;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-fixed-unit,
+.contact-fixed-person {
+  font-size: 18px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.contact-fixed-value {
+  font-size: 16px;
+  color: rgba(11, 20, 32, 0.68);
+  white-space: nowrap;
+}
+
+.contact-fixed-value a {
+  color: var(--accent);
+}
+
+.contact-fixed-email-label {
+  grid-column: 1 / 3;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.contact-fixed-email-value {
+  grid-column: 3;
+}
+
+@media (max-width: 760px) {
+  .contact-fixed-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .contact-fixed-email-label,
+  .contact-fixed-email-value {
+    grid-column: auto;
+  }
+}
+</style>
+
 <main class="page-shell">
 
   <div class="page-title-block">
@@ -10,42 +66,34 @@ title: 聯絡我們
     <div class="page-title-en">Contact Us</div>
   </div>
 
+  <div class="contact-fixed-list">
 
-  <div class="contact-list contact-list-wide">
-
-    <div class="contact-row contact-row-staff">
-      <div class="contact-label contact-label-person contact-label-person-zh">
-        <span class="contact-unit">輔導室</span>
-        <span class="contact-person">葉主任</span>
-      </div>
-      <div class="contact-value contact-phone">02-2782-8094 #1400</div>
+    <div class="contact-fixed-row">
+      <div class="contact-fixed-unit">輔導室</div>
+      <div class="contact-fixed-person">葉主任</div>
+      <div class="contact-fixed-value">02-2782-8094 #1400</div>
     </div>
 
-    <div class="contact-row contact-row-staff">
-      <div class="contact-label contact-label-person contact-label-person-zh">
-        <span class="contact-unit">特教組</span>
-        <span class="contact-person">陳組長</span>
-      </div>
-      <div class="contact-value contact-phone">02-2782-8094 #1430</div>
+    <div class="contact-fixed-row">
+      <div class="contact-fixed-unit">特教組</div>
+      <div class="contact-fixed-person">陳組長</div>
+      <div class="contact-fixed-value">02-2782-8094 #1430</div>
     </div>
 
-    <div class="contact-row contact-row-staff">
-      <div class="contact-label contact-label-person contact-label-person-zh">
-        <span class="contact-unit">資優召集人</span>
-        <span class="contact-person">張老師</span>
-      </div>
-      <div class="contact-value contact-phone">02-2782-8094 #1430</div>
+    <div class="contact-fixed-row">
+      <div class="contact-fixed-unit">資優召集人</div>
+      <div class="contact-fixed-person">張老師</div>
+      <div class="contact-fixed-value">02-2782-8094 #1430</div>
     </div>
 
-    <div class="contact-row contact-row-email">
-      <div class="contact-label">資優班信箱</div>
-      <div class="contact-value">
+    <div class="contact-fixed-row">
+      <div class="contact-fixed-email-label">資優班信箱</div>
+      <div class="contact-fixed-value contact-fixed-email-value">
         <a href="mailto:gate.czjh@gmail.com">gate.czjh@gmail.com</a>
       </div>
     </div>
 
   </div>
-
 
   <div class="map-block">
 

@@ -3,48 +3,96 @@ layout: en-page
 title: Contact Us
 ---
 
+<style>
+.contact-fixed-list {
+  max-width: 920px;
+  margin-bottom: 48px;
+  border-top: 1px solid var(--line);
+}
+
+.contact-fixed-row {
+  display: grid;
+  grid-template-columns: 240px 190px 240px;
+  column-gap: 28px;
+  align-items: center;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.contact-fixed-unit,
+.contact-fixed-person {
+  font-size: 17px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.contact-fixed-value {
+  font-size: 16px;
+  color: rgba(11, 20, 32, 0.68);
+  white-space: nowrap;
+}
+
+.contact-fixed-value a {
+  color: var(--accent);
+}
+
+.contact-fixed-email-label {
+  grid-column: 1 / 3;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+.contact-fixed-email-value {
+  grid-column: 3;
+}
+
+@media (max-width: 860px) {
+  .contact-fixed-row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .contact-fixed-email-label,
+  .contact-fixed-email-value {
+    grid-column: auto;
+  }
+}
+</style>
+
 <main class="page-shell">
 
   <div class="page-title-block">
     <h1 class="page-title">Contact Us</h1>
   </div>
 
+  <div class="contact-fixed-list">
 
-  <div class="contact-list contact-list-wide">
-
-    <div class="contact-row contact-row-staff">
-      <div class="contact-label contact-label-person contact-label-person-en">
-        <span class="contact-unit">Counseling Office</span>
-        <span class="contact-person">Director Yeh</span>
-      </div>
-      <div class="contact-value contact-phone">02-2782-8094 ext. 1400</div>
+    <div class="contact-fixed-row">
+      <div class="contact-fixed-unit">Counseling Office</div>
+      <div class="contact-fixed-person">Director Yeh</div>
+      <div class="contact-fixed-value">02-2782-8094 ext. 1400</div>
     </div>
 
-    <div class="contact-row contact-row-staff">
-      <div class="contact-label contact-label-person contact-label-person-en">
-        <span class="contact-unit">Special Education Section</span>
-        <span class="contact-person">Section Chief Chen</span>
-      </div>
-      <div class="contact-value contact-phone">02-2782-8094 ext. 1430</div>
+    <div class="contact-fixed-row">
+      <div class="contact-fixed-unit">Special Education Section</div>
+      <div class="contact-fixed-person">Section Chief Chen</div>
+      <div class="contact-fixed-value">02-2782-8094 ext. 1430</div>
     </div>
 
-    <div class="contact-row contact-row-staff">
-      <div class="contact-label contact-label-person contact-label-person-en">
-        <span class="contact-unit">GATE Program Coordinator</span>
-        <span class="contact-person">Teacher Zhang</span>
-      </div>
-      <div class="contact-value contact-phone">02-2782-8094 ext. 1430</div>
+    <div class="contact-fixed-row">
+      <div class="contact-fixed-unit">GATE Program Coordinator</div>
+      <div class="contact-fixed-person">Teacher Zhang</div>
+      <div class="contact-fixed-value">02-2782-8094 ext. 1430</div>
     </div>
 
-    <div class="contact-row contact-row-email">
-      <div class="contact-label">GATE Program Email</div>
-      <div class="contact-value">
+    <div class="contact-fixed-row">
+      <div class="contact-fixed-email-label">GATE Program Email</div>
+      <div class="contact-fixed-value contact-fixed-email-value">
         <a href="mailto:gate.czjh@gmail.com">gate.czjh@gmail.com</a>
       </div>
     </div>
 
   </div>
-
 
   <div class="map-block">
 
