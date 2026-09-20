@@ -1,0 +1,104 @@
+---
+layout: en-page
+title: Activities
+---
+
+<main class="page-shell">
+
+  <div class="page-title-block">
+    <h1 class="page-title">Activities</h1>
+    <div class="page-title-en">Activity Posts</div>
+  </div>
+
+
+  <div class="activity-search-wrap">
+
+    <label class="activity-search-label" for="activitySearch">
+      Search Posts
+    </label>
+
+    <input
+      class="activity-search"
+      id="activitySearch"
+      type="search"
+      placeholder="Search by title, keyword, or date"
+      autocomplete="off"
+      data-activity-search
+    >
+
+    <div class="search-count" data-search-count></div>
+
+  </div>
+
+
+  <div class="activity-feed">
+
+    {% assign en_posts = site.posts | where: "lang", "en" %}
+
+    {% for post in en_posts %}
+
+      <article
+        class="feed-post"
+        data-post-item
+        data-title="{{ post.title | escape }}"
+        data-summary="{{ post.summary | default: '' | escape }}"
+        data-date="{{ post.date | date: '%Y.%m.%d' }}"
+      >
+
+        <a class="feed-cover" href="{{ post.url | relative_url }}">
+
+          {% if post.cover %}
+            <img src="{{ post.cover | relative_url }}" alt="{{ post.title }}">
+          {% else %}
+            <div class="feed-placeholder">ACTIVITY</div>
+          {% endif %}
+
+        </a>
+
+        <div class="feed-content">
+
+          <div class="feed-date">
+            {{ post.date | date: "%Y.%m.%d" }}
+          </div>
+
+          <h2 class="feed-title">
+            <a href="{{ post.url | relative_url }}">
+              {{ post.title }}
+            </a>
+          </h2>
+
+          {% if post.summary %}
+            <p class="feed-summary">{{ post.summary }}</p>
+          {% else %}
+            <p class="feed-summary">Coming Soon</p>
+          {% endif %}
+
+          <a class="feed-read" href="{{ post.url | relative_url }}">
+            Read Post →
+          </a>
+
+        </div>
+
+      </article>
+
+    {% endfor %}
+
+  </div>
+
+
+  {% if en_posts.size == 0 %}
+    <div class="construction-box">
+      <div class="construction-main">Coming Soon</div>
+      <div class="construction-en">No English activity posts have been published yet.</div>
+    </div>
+  {% endif %}
+
+
+  <div class="no-search-results" data-no-results>
+    No matching posts found.
+  </div>
+
+
+  <script src="{{ '/js/activities.js' | relative_url }}"></script>
+
+</main>

@@ -1,0 +1,13 @@
+title: "臺北市立誠正國民中學數理資優班"
+description: "Math & Science Gifted and Talented Education Program"
+url: "https://gateczjh.github.io"
+baseurl: ""
+
+markdown: kramdown
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      lang: zh
