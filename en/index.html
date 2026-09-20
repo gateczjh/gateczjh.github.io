@@ -6,6 +6,80 @@ title: Home
 <main>
 
 
+  <section class="announcements-home">
+
+    <div class="section-head">
+
+      <div class="section-title-block">
+
+        <h1 class="section-title">
+          Latest Announcements
+        </h1>
+
+        <div class="section-title-en">
+          Notices
+        </div>
+
+      </div>
+
+      <a class="all-announcements" href="{{ '/en/announcements.html' | relative_url }}">
+        View All Announcements
+        <span>→</span>
+      </a>
+
+    </div>
+
+    {% assign en_announcements = site.announcements | where: "lang", "en" | sort: "date" | reverse %}
+
+    <div class="announcement-home-list">
+
+      {% if en_announcements.size > 0 %}
+
+        {% for notice in en_announcements limit:5 %}
+
+          <a class="announcement-home-item" href="{{ notice.url | relative_url }}">
+
+            <div class="announcement-home-date">
+              {{ notice.date | date: "%Y.%m.%d" }}
+            </div>
+
+            <div class="announcement-home-main">
+
+              <div class="announcement-category-badge" data-category="{{ notice.category }}">
+                {% case notice.category %}
+                  {% when "class" %}Class Notices
+                  {% when "activity" %}Activity Highlights
+                  {% when "honor" %}Student & Teacher Honors
+                  {% else %}Uncategorized
+                {% endcase %}
+              </div>
+
+              <h2 class="announcement-home-title">
+                {{ notice.title }}
+              </h2>
+
+            </div>
+
+            <span class="announcement-home-arrow">→</span>
+
+          </a>
+
+        {% endfor %}
+
+      {% else %}
+
+        <div class="announcement-empty">
+          No announcements at this time.
+        </div>
+
+      {% endif %}
+
+    </div>
+
+  </section>
+
+
+
   <section class="latest">
 
     <div class="section-head">

@@ -6,6 +6,80 @@ title: 首頁
 <main>
 
 
+  <section class="announcements-home">
+
+    <div class="section-head">
+
+      <div class="section-title-block">
+
+        <h1 class="section-title">
+          最新公告
+        </h1>
+
+        <div class="section-title-en">
+          Latest Announcements
+        </div>
+
+      </div>
+
+      <a class="all-announcements" href="{{ '/zh/announcements.html' | relative_url }}">
+        查看所有公告
+        <span>→</span>
+      </a>
+
+    </div>
+
+    {% assign zh_announcements = site.announcements | where: "lang", "zh" | sort: "date" | reverse %}
+
+    <div class="announcement-home-list">
+
+      {% if zh_announcements.size > 0 %}
+
+        {% for notice in zh_announcements limit:5 %}
+
+          <a class="announcement-home-item" href="{{ notice.url | relative_url }}">
+
+            <div class="announcement-home-date">
+              {{ notice.date | date: "%Y.%m.%d" }}
+            </div>
+
+            <div class="announcement-home-main">
+
+              <div class="announcement-category-badge" data-category="{{ notice.category }}">
+                {% case notice.category %}
+                  {% when "class" %}班務公告
+                  {% when "activity" %}活動分享
+                  {% when "honor" %}師生榮耀
+                  {% else %}未分類
+                {% endcase %}
+              </div>
+
+              <h2 class="announcement-home-title">
+                {{ notice.title }}
+              </h2>
+
+            </div>
+
+            <span class="announcement-home-arrow">→</span>
+
+          </a>
+
+        {% endfor %}
+
+      {% else %}
+
+        <div class="announcement-empty">
+          目前沒有公告
+        </div>
+
+      {% endif %}
+
+    </div>
+
+  </section>
+
+
+
   <section class="latest">
 
     <div class="section-head">

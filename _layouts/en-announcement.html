@@ -1,0 +1,65 @@
+---
+layout: en-page
+---
+
+<main class="page-shell">
+
+  <div class="page-title-block">
+
+    <div class="announcement-category-badge" data-category="{{ page.category }}">
+      {% case page.category %}
+        {% when "class" %}Class Notices
+        {% when "activity" %}Activity Highlights
+        {% when "honor" %}Student & Teacher Honors
+        {% else %}Uncategorized
+      {% endcase %}
+    </div>
+
+    <h1 class="page-title">{{ page.title }}</h1>
+    <div class="page-title-en">Announcement</div>
+
+  </div>
+
+  <div class="announcement-article">
+
+    <div class="announcement-meta">
+
+      <div class="announcement-meta-item">
+        <span class="announcement-meta-label">Published</span>
+        <span>{{ page.date | date: "%Y.%m.%d" }}</span>
+      </div>
+
+      {% if page.contact %}
+        <div class="announcement-meta-item">
+          <span class="announcement-meta-label">Contact</span>
+          <span>{{ page.contact }}</span>
+        </div>
+      {% endif %}
+
+    </div>
+
+    <section class="announcement-body">
+      {{ content }}
+    </section>
+
+    {% if page.photos %}
+
+      <section class="announcement-photo-section">
+
+        <h2 class="post-section-title">Photos</h2>
+
+        <div class="post-photo-grid">
+
+          {% for photo in page.photos limit:5 %}
+            <img class="post-photo" src="{{ photo | relative_url }}" alt="{{ page.title }}">
+          {% endfor %}
+
+        </div>
+
+      </section>
+
+    {% endif %}
+
+  </div>
+
+</main>

@@ -1,0 +1,43 @@
+【新增中文公告時，複製本檔內容到新的 .md 檔】
+
+檔名範例：
+2026-09-20-parent-day.md
+
+分類只能填以下三種之一：
+category: class
+→ 班務公告
+
+category: activity
+→ 活動分享
+
+category: honor
+→ 師生榮耀
+
+
+以下是完整範本：
+
+---
+title: "公告標題"
+date: 2026-09-20
+lang: zh
+layout: announcement
+permalink: /zh/announcement/2026/09/20/example/
+
+# ===== 公告分類 =====
+# class    = 班務公告
+# activity = 活動分享
+# honor    = 師生榮耀
+category: class
+
+contact: "張老師"
+
+# 最多五張照片。
+# 沒有照片時，直接刪掉整段 photos。
+photos:
+  - /announcement-images/2026-09-20-example/photo-01.jpg
+  - /announcement-images/2026-09-20-example/photo-02.jpg
+---
+
+這裡直接撰寫公告文字內容。
+
+可以分成多個段落。

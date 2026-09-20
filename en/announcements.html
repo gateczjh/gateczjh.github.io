@@ -1,0 +1,88 @@
+---
+layout: en-page
+title: Announcements
+---
+
+<main class="page-shell">
+
+  <div class="page-title-block">
+    <h1 class="page-title">Announcements</h1>
+    <div class="page-title-en">Notices</div>
+  </div>
+
+  <div class="announcement-filter" role="group" aria-label="Announcement categories">
+    <button class="announcement-filter-btn active" type="button" data-filter="all" aria-pressed="true">All Announcements</button>
+    <button class="announcement-filter-btn" type="button" data-filter="class" aria-pressed="false">Class Notices</button>
+    <button class="announcement-filter-btn" type="button" data-filter="activity" aria-pressed="false">Activity Highlights</button>
+    <button class="announcement-filter-btn" type="button" data-filter="honor" aria-pressed="false">Student & Teacher Honors</button>
+  </div>
+
+  {% assign en_announcements = site.announcements | where: "lang", "en" | sort: "date" | reverse %}
+
+  <div class="announcement-archive" id="announcementArchive">
+
+    {% if en_announcements.size > 0 %}
+
+      {% for notice in en_announcements %}
+
+        <article class="announcement-archive-item" data-category="{{ notice.category }}">
+
+          <div class="announcement-archive-date">
+            {{ notice.date | date: "%Y.%m.%d" }}
+          </div>
+
+          <div class="announcement-archive-content">
+
+            <div class="announcement-category-badge" data-category="{{ notice.category }}">
+              {% case notice.category %}
+                {% when "class" %}Class Notices
+                {% when "activity" %}Activity Highlights
+                {% when "honor" %}Student & Teacher Honors
+                {% else %}Uncategorized
+              {% endcase %}
+            </div>
+
+            <h2 class="announcement-archive-title">
+              <a href="{{ notice.url | relative_url }}">{{ notice.title }}</a>
+            </h2>
+
+          </div>
+
+          <a class="announcement-archive-read" href="{{ notice.url | relative_url }}" aria-label="Read {{ notice.title }}">→</a>
+
+        </article>
+
+      {% endfor %}
+
+    {% else %}
+
+      <div class="announcement-empty">No announcements at this time.</div>
+
+    {% endif %}
+
+  </div>
+
+</main>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const buttons = document.querySelectorAll(".announcement-filter-btn");
+  const items = document.querySelectorAll(".announcement-archive-item");
+
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const filter = button.dataset.filter;
+
+      buttons.forEach(function (btn) {
+        const active = btn === button;
+        btn.classList.toggle("active", active);
+        btn.setAttribute("aria-pressed", active ? "true" : "false");
+      });
+
+      items.forEach(function (item) {
+        item.hidden = !(filter === "all" || item.dataset.category === filter);
+      });
+    });
+  });
+});
+</script>

@@ -1,0 +1,44 @@
+HOW TO ADD AN ENGLISH ANNOUNCEMENT
+
+Example filename:
+2026-09-20-en-parent-day.md
+
+Use exactly one category value:
+
+category: class
+= Class Notices
+
+category: activity
+= Activity Highlights
+
+category: honor
+= Student & Teacher Honors
+
+
+FULL TEMPLATE:
+
+---
+title: "Announcement Title"
+date: 2026-09-20
+lang: en
+layout: en-announcement
+permalink: /en/announcement/2026/09/20/example/
+
+# ===== ANNOUNCEMENT CATEGORY =====
+# class    = Class Notices
+# activity = Activity Highlights
+# honor    = Student & Teacher Honors
+category: class
+
+contact: "Teacher Zhang"
+
+# Up to five photos.
+# Delete the entire photos section if there are no photos.
+photos:
+  - /announcement-images/2026-09-20-example/photo-01.jpg
+  - /announcement-images/2026-09-20-example/photo-02.jpg
+---
+
+Write the announcement content here.
+
+You may use multiple paragraphs.

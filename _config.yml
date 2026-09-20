@@ -4,6 +4,11 @@ url: "https://gateczjh.github.io"
 baseurl: ""
 
 markdown: kramdown
+
+collections:
+  announcements:
+    output: true
+
 defaults:
   - scope:
       path: ""
