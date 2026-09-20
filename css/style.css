@@ -1689,3 +1689,33 @@ input {
   }
 
 }
+
+
+/* ==================================================
+   ANNOUNCEMENTS — WIDTH & DATE SIZE FINAL OVERRIDES
+================================================== */
+
+/* 1. Announcement archive spans the full available page width. */
+.announcement-archive {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* 2. Make announcement dates easier to read on archive/home. */
+.announcement-home-date,
+.announcement-archive-date {
+  font-size: 14px;
+}
+
+/* 3. Make the published date inside an announcement article larger. */
+.announcement-meta-item:first-child > span:last-child {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+@media (max-width: 700px) {
+  .announcement-meta-item:first-child > span:last-child {
+    font-size: 17px;
+  }
+}
