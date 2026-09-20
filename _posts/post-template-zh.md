@@ -1,0 +1,21 @@
+---
+title: "活動標題"
+date: 2025-04-21
+lang: zh
+layout: post
+permalink: /zh/post/2025/04/21
+
+cover: /post-images/2025-04-21/cover.jpg
+
+# 沒有相關連結時，可以刪除整段 related_links。
+related_links:
+  - title: "臉書貼文"
+    url: "https://www.facebook.com/share/p/1F7Q53to8M/"
+
+# 照片請放在 post-images/活動資料夾/
+photos:
+  - /post-images/2025-04-21/photo-01.jpg
+  - /post-images/2025-04-21/photo-02.jpg
+---
+
+科展獲佳績。
