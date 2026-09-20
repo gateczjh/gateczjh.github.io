@@ -8,7 +8,26 @@ CZJH GATE 公告新增說明
 # activity = 活動分享
 # honor    = 師生榮耀
 
+
+【相關連結或檔案】
+公告現在支援 related_resources，可放網站連結或下載檔案。
+
 範例：
+
+related_resources:
+  - title: "報名網站"
+    url: "https://example.com"
+  - title: "活動簡章 PDF"
+    url: "/announcement-files/2026-09-20-example/example.pdf"
+
+沒有相關連結或檔案時，直接刪除整段 related_resources 即可。
+
+網站連結可直接填完整網址。
+檔案建議放到：
+announcement-files/公告資料夾名稱/
+
+
+【完整中文公告範例】
 
 ---
 title: "資優班家長日公告"
@@ -24,6 +43,12 @@ permalink: /zh/announcement/2026/09/20/parent-day/
 category: class
 
 contact: "張老師"
+
+related_resources:
+  - title: "相關網站"
+    url: "https://example.com"
+  - title: "活動簡章 PDF"
+    url: "/announcement-files/2026-09-20-parent-day/information.pdf"
 
 # 照片最多五張。沒有照片時可直接刪除整段 photos。
 photos:
@@ -41,6 +66,8 @@ layout: en-announcement
 英文分類仍使用相同的 category 值：
 class / activity / honor
 
+英文公告同樣使用 related_resources。
+
 
 【檔案放置位置】
 中文與英文公告 .md：
@@ -49,9 +76,12 @@ _announcements/
 公告照片：
 announcement-images/公告資料夾名稱/
 
+公告附件：
+announcement-files/公告資料夾名稱/
+
 
 【首頁顯示規則】
 首頁自動顯示最新五則公告，只顯示：
 分類 / 日期 / 標題
 
-聯絡人只會在點進公告內頁之後顯示。
+聯絡人、相關連結或檔案只會在點進公告內頁之後顯示。

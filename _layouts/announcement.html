@@ -42,6 +42,36 @@ layout: zh-page
       {{ content }}
     </section>
 
+
+    {% if page.related_resources %}
+
+      <section class="post-section">
+
+        <h2 class="post-section-title">
+          相關連結或檔案
+          <div class="post-section-title-en">Related Links or Files</div>
+        </h2>
+
+        <div class="post-link-list">
+
+          {% for item in page.related_resources %}
+
+            <a
+              href="{{ item.url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ item.title }} ↗
+            </a>
+
+          {% endfor %}
+
+        </div>
+
+      </section>
+
+    {% endif %}
+
     {% if page.photos %}
 
       <section class="announcement-photo-section">

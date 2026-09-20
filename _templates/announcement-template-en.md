@@ -13,6 +13,16 @@ category: class
 
 contact: "Teacher Zhang"
 
+# ===== RELATED LINKS OR FILES =====
+# You may include both website links and downloadable files.
+# Delete the entire related_resources section if there are none.
+# Files are recommended to be stored in announcement-files/announcement-folder/
+related_resources:
+  - title: "Related Website"
+    url: "https://example.com"
+  - title: "Event Information PDF"
+    url: "/announcement-files/2026-09-20-example/example.pdf"
+
 # Up to five announcement photos.
 # Delete the entire photos section if there are no photos.
 photos:
@@ -22,4 +32,4 @@ photos:
 
 Write the announcement here.
 
-The homepage shows only category, date, and title. Contact appears on the announcement page.
+The homepage shows only category, date, and title. Contact and related links/files appear on the announcement page.
