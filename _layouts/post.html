@@ -1,0 +1,132 @@
+---
+layout: zh-page
+---
+
+<main class="page-shell">
+
+  <div class="page-title-block">
+
+    <h1 class="page-title">
+      {{ page.title }}
+    </h1>
+
+    <div class="page-title-en">
+      Activity Post
+    </div>
+
+  </div>
+
+
+  <div class="post-sections">
+
+
+    <!-- 文章正文：直接顯示，不另外加區塊標題 -->
+
+    <section class="post-section post-section-text">
+
+      <div class="post-text">
+        {{ content }}
+      </div>
+
+    </section>
+
+
+
+    <!-- 相關連結 -->
+
+    <section class="post-section">
+
+      <h2 class="post-section-title">
+
+        相關連結
+
+        <div class="post-section-title-en">
+          Related Links
+        </div>
+
+      </h2>
+
+
+      <div class="post-link-list">
+
+        {% if page.related_links %}
+
+          {% for item in page.related_links %}
+
+            <a
+              href="{{ item.url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{ item.title }} ↗
+            </a>
+
+          {% endfor %}
+
+        {% else %}
+
+          <div class="post-link-placeholder">
+            施工中
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </section>
+
+
+
+    <!-- 照片 -->
+
+    <section class="post-section">
+
+      <h2 class="post-section-title">
+
+        照片
+
+        <div class="post-section-title-en">
+          Photos
+        </div>
+
+      </h2>
+
+
+      <div class="post-photo-grid">
+
+        {% if page.photos %}
+
+          {% for photo in page.photos %}
+
+            <img
+              class="post-photo"
+              src="{{ photo | relative_url }}"
+              alt="{{ page.title }}"
+            >
+
+          {% endfor %}
+
+        {% elsif page.cover %}
+
+          <img
+            class="post-photo"
+            src="{{ page.cover | relative_url }}"
+            alt="{{ page.title }}"
+          >
+
+        {% else %}
+
+          <div class="post-photo-placeholder">
+            施工中
+          </div>
+
+        {% endif %}
+
+      </div>
+
+    </section>
+
+
+  </div>
+
+</main>
