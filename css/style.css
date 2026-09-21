@@ -1791,3 +1791,123 @@ input {
     padding-inline: 12px;
   }
 }
+
+
+/* ==================================================
+   TEACHERS — MOBILE OVERFLOW FIX
+================================================== */
+
+.teacher-card,
+.teacher-content,
+.teacher-meta,
+.teacher-meta dd {
+  min-width: 0;
+}
+
+.teacher-meta dd,
+.teacher-info-link {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.teacher-info-link {
+  max-width: 100%;
+}
+
+@media (max-width: 720px) {
+  .teacher-card {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .teacher-content {
+    padding: 26px 22px 30px;
+  }
+
+  .teacher-meta {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 12px 16px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .teacher-meta dt,
+  .teacher-meta dd {
+    min-width: 0;
+  }
+
+  .teacher-meta dd {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .teacher-info-link {
+    display: inline;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+  }
+}
+
+@media (max-width: 420px) {
+  .teacher-content {
+    padding: 24px 18px 28px;
+  }
+
+  .teacher-meta {
+    grid-template-columns: 62px minmax(0, 1fr);
+    gap: 11px 12px;
+  }
+
+  .teacher-name {
+    font-size: 30px;
+  }
+
+  .teacher-name-en {
+    letter-spacing: 0.08em;
+    overflow-wrap: anywhere;
+  }
+}
+
+
+/* ==================================================
+   TEACHERS — PROFILE PHOTOS
+================================================== */
+
+.teacher-photo {
+  overflow: hidden;
+}
+
+.teacher-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.teacher-list .teacher-photo img {
+  min-height: 320px;
+}
+
+.teacher-profile-photo img {
+  object-position: center 35%;
+}
+
+@media (max-width: 720px) {
+  .teacher-photo img,
+  .teacher-list .teacher-photo img {
+    min-height: 260px;
+    max-height: 420px;
+  }
+}
+
+@media (max-width: 420px) {
+  .teacher-photo img,
+  .teacher-list .teacher-photo img {
+    min-height: 230px;
+    max-height: 360px;
+  }
+}
