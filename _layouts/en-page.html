@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    {{ page.title }} | CZJH GATE Program
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="{{ '/css/style.css' | relative_url }}"
+  >
+
+</head>
+
+
+<body class="en-site">
+
+  {% include en-header.html %}
+
+  {{ content }}
+
+
+  {% unless page.title == "Home" %}
+  <footer class="site-footer">
+
+    <div>
+
+      <div class="footer-school">
+        Taipei Municipal Cheng-Zheng Junior High School
+      </div>
+
+      <div class="footer-school-en">
+        CZJH GATE Program
+      </div>
+
+    </div>
+
+    <a
+      class="footer-back"
+      href="{{ '/' | relative_url }}"
+    >
+      Language Selection
+    </a>
+
+  </footer>
+  {% endunless %}
+
+</body>
+
+</html>

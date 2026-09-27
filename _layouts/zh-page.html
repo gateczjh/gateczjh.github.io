@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    {{ page.title }} | 臺北市立誠正國民中學 數理資優班
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="{{ '/css/style.css' | relative_url }}"
+  >
+
+</head>
+
+
+<body>
+
+  {% include zh-header.html %}
+
+  {{ content }}
+
+
+  {% unless page.title == "首頁" %}
+  <footer class="site-footer">
+
+    <div>
+
+      <div class="footer-school">
+        臺北市立誠正國民中學 數理資優班
+      </div>
+
+      <div class="footer-school-en">
+        CZJH GATE Program
+      </div>
+
+    </div>
+
+    <a
+      class="footer-back"
+      href="{{ '/' | relative_url }}"
+    >
+      Language Selection
+    </a>
+
+  </footer>
+  {% endunless %}
+
+</body>
+
+</html>
